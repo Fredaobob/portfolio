@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <title>Alexandre Rodrigues - Portfolio</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+      <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body class="bg-dark text-light">
+      {% include 'components/cursoranim.html' %}
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        {% include 'components/nav.html' %}
+      </nav>
+
+    <!-- Projects Section -->
+    <section id="projects" class="container py-2">
+        <p class="text-center text-lg">  </p>
+        {% include 'components/reporender.html' %}
+
+    </section>
+
+      <footer class="bg-black fixed-bottom text-center text-light py-3">
+        {% include 'components/footer.html'%}
+    </footer>
+
+
+    
+    <!--Repo fetching -->
+      <script>
+        const selectedRepos = ['aluralivros', "flaskproject-v2", 'AO-AutoFish', 'laranja-cobra', 'Mario-simples', "Site"]; 
+        const projectImages = {
+          'aluralivros': '/static/aluraai.webp',
+          //'flaskproject-v2': '/static/flaskproject-v2.webp',
+          'AO-AutoFish': '/static/aofish.webp',
+          'laranja-cobra': '/static/laranja-cobra.webp',
+          'Mario-simples': '/static/mario-simples.webp',
+          'Site': '/static/bradesco.webp'
+        };
+
+        fetch('https://api.github.com/users/Fredaobob/repos')
+          .then(response => response.json())
+          .then(repos => {
+            const projectsContainer = document.getElementById('github-projects');
+            repos.forEach(repo => {
+              if (selectedRepos.includes(repo.name)) {
+                // Use the specified project image or a default one if not found
+                const imageUrl = projectImages[repo.name] || '/static/default.webp'; // Update the default image path as needed
+                projectsContainer.innerHTML += `
+                <div class="col">
+                  <div class="card bg-dark text-white h-100 d-flex flex-column">
+                    <img src="${imageUrl}" class="card-img-top" alt="${repo.name}">
+                    <div class="card-body d-flex flex-column">
+                      <h5 class="card-title">${repo.name}</h5>
+                      <p class="card-text">${repo.description || 'No description provided.'}</p>
+                    </div>
+                    <div class="card-footer mt-auto bg-transparent border-0">
+                      <a href="${repo.html_url}" class="btn btn-outline-light" target="_blank">View on GitHub</a>
+                    </div>
+                  </div>
+                </div>
+
+                `;
+              }
+            });
+          })
+          .catch(error => console.error('Error fetching repos:', error));
+      </script>
+    </body>
+    </html>

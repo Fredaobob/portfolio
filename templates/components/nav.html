@@ -1,0 +1,44 @@
+<style>
+  body {
+    cursor: none;
+  }
+
+  .navbar-nav {
+    display: flex; /* Use flexbox to align items */
+    justify-content: center; /* Center the items horizontally */
+    align-items: center; /* Center the items vertically */
+    width: 100%; /* Full width to center within the container */
+  }
+
+  .navbar-brand,
+  .nav-link {
+    position: relative; /* Position relative for pseudo-element positioning */
+    margin: 0 10px; /* Spacing between links */
+  }
+
+  /* Style for the floating dots */
+  .navbar-brand::after,
+  .nav-link:not(:last-child)::after { /* Add a dot after the brand and before the last item */
+    content: '|'; /* Unicode character for a bullet */
+    color: white; /* Color of the bullet */
+    font-size: 1.5em; /* Size of the bullet */
+    position: absolute; /* Absolute positioning relative to the nav-link */
+    top: 50%; /* Center vertically */
+    right: -20px; /* Position to the right of the link */
+    transform: translate(0, -50%); /* Center the dot vertically */
+  }
+</style>
+
+<div class="container">
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav ms-auto">
+      <a class="navbar-brand" href="/">Alexandre Rodrigues</a>
+      <a class="nav-link" aria-current="page" href="/projects">Projects</a>
+      <a class="nav-link" href="/aboutme">About Me</a>
+      <a class="nav-link" href="/contact">Contact</a>
+    </div>
+  </div>
+</div>

@@ -1,38 +1,29 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
-JOBS = [{
-    'id': 1,
-    'title': 'Data Analyst',
-    'location': 'Bengaluru, India',
-    'salary': 'Rs. 12,00,000'
-}, {
-    'id': 2,
-    'title': 'Data Scientist',
-    'location': 'Delhi, india',
-    'salary': 'Rs. 150,00,000'
-}, {
-    'id': 3,
-    'title': 'Frontend Engineer',
-    'location': 'Remote',
-    'salary': 'Rs. 12,00,000'
-}, {
-    'id': 4,
-    'title': 'Backend Engineer',
-    'location': 'San Francisco, USA',
-    'salary': '$120,000'
-}]
-
 
 @app.route("/")
-def hello_world():
-  return render_template('home.html', jobs=JOBS, company_name='Mijotecnico')
+def home():
+  return render_template('home.html', company_name='portifolio')
 
 
-@app.route("/jobs")
-def list_jobs():
-  return jsonify(JOBS)
+@app.route("/projects")
+def projects():
+  # You can pass different parameters if needed, or render a different template
+  return render_template('projects.html', company_name='projects')
+
+
+@app.route("/aboutme")
+def aboutme():
+  # You can pass different parameters if needed, or render a different template
+  return render_template('aboutme.html', company_name='about me')
+
+
+@app.route("/contact")
+def contact():
+  # You can pass different parameters if needed, or render a different template
+  return render_template('contact.html', company_name='contact me')
 
 
 if __name__ == "__main__":
