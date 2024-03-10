@@ -1,9 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 body {
-  height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+  /* height: 100vh; Removido para permitir expansão vertical conforme o conteúdo */
   width: 100vw;
+  box-sizing: border-box;
 }
+
+#contact {
+  z-index: -1;
+}
+
+
+/* Adicionando estilos para a barra de rolagem vertical */
+::-webkit-scrollbar {
+    width: 5px; /* Largura da barra de rolagem vertical reduzida */
+}
+
+::-webkit-scrollbar-track {
+    background: transparent; /* Deixa a track da barra de rolagem transparente */
+}
+
+::-webkit-scrollbar-thumb {
+    background: white; /* Cor da barra de rolagem */
+    border-radius: 2px; /* Arredonda as bordas da barra de rolagem */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ccc; /* Cor da barra de rolagem ao passar o mouse */
+}
+
 
 body, p {
   font-family: 'Roboto', sans-serif;
@@ -33,4 +60,8 @@ body, p {
 .btn-primary {
   margin: 2px;
   /* Add additional styling as needed */
+}
+
+footer-landing {
+  background-color: transparent;
 }

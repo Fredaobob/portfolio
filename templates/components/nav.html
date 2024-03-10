@@ -19,7 +19,7 @@
   /* Style for the floating dots */
   .navbar-brand::after,
   .nav-link:not(:last-child)::after { /* Add a dot after the brand and before the last item */
-    content: '|'; /* Unicode character for a bullet */
+    content: ' '; /* Unicode character for a bullet */
     color: white; /* Color of the bullet */
     font-size: 1.5em; /* Size of the bullet */
     position: absolute; /* Absolute positioning relative to the nav-link */
@@ -35,7 +35,7 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav ms-auto">
-      <a class="navbar-brand" href="/">Alexandre Rodrigues</a>
+      <a class="nav-link" href="/">Home</a>
       <a class="nav-link" aria-current="page" href="/projects">Projects</a>
       <a class="nav-link" href="/aboutme">About Me</a>
       <a class="nav-link" href="/contact">Contact</a>
