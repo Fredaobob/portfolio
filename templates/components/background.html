@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<meta charset="UTF-8">
+<title>Dynamic Gradient Background with Smooth Blending</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    cursor: none;
+  }
+  .color-water-background, .cursor-highlight {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .color-water-background {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(0deg, rgba(15, 32, 39, 0.8) 0%, rgba(32, 58, 67, 0.8) 20%, rgba(44, 83, 100, 0.8) 40%, rgba(83, 52, 109, 0.8) 60%, rgba(66, 39, 90, 0.8) 80%);
+    filter: blur(30px); /* Aumento do blur para suavização */
+  }
+  .cursor-highlight {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.5) 70%);
+    filter: blur(8px);
+    transform: translate(-50%, -50%);
+    z-index: 100;
+  }
+</style>
+</head>
+<body>
+
+<div class="color-water-background"></div>
+<div class="cursor-highlight"></div>
+
+<script>
+  function updateGradientBackground(gradientName) {
+    const background = document.querySelector('.color-water-background');
+    switch (gradientName) {
+      case 'gradient1':
+        background.style.backgroundImage = 'linear-gradient(to right, #ff9a9e, #fad0c4)';
+        break;
+      case 'gradient2':
+        background.style.backgroundImage = 'linear-gradient(to right, #a18cd1, #fbc2eb)';
+        break;
+      case 'gradient3':
+        background.style.backgroundImage = 'linear-gradient(to right, #ffecd2, #fcb69f)';
+        break;
+      // Adicione mais casos conforme necessário
+    }
+  }
+
+
+  
+  const cursorHighlight = document.querySelector('.cursor-highlight');
+  let lastX = window.innerWidth / 2, lastY = window.innerHeight / 2;
+  let lastAngle = 0;
+  const threshold = 10;
+
+  document.addEventListener('mousemove', (e) => {
+    cursorHighlight.style.left = `${e.clientX}px`;
+    cursorHighlight.style.top = `${e.clientY}px`;
+
+    const deltaX = Math.abs(e.clientX - lastX);
+    const deltaY = Math.abs(e.clientY - lastY);
+
+    if (deltaX > threshold || deltaY > threshold) {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      updateBackground(e.clientX, e.clientY);
+    }
+  });
+
+  function updateBackground(mouseX, mouseY) {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const angle = Math.atan2(mouseY - (height / 2), mouseX - (width / 2)) * (180 / Math.PI);
+
+    if (Math.abs(angle - lastAngle) > 0.5) {
+      const background = document.querySelector('.color-water-background');
+      background.style.backgroundImage = `linear-gradient(${angle}deg, rgba(15, 32, 39, 0.8) 0%, rgba(32, 58, 67, 0.8) 20%, rgba(44, 83, 100, 0.8) 40%, rgba(83, 52, 109, 0.8) 60%, rgba(66, 39, 90, 0.8) 80%)`;
+      lastAngle = angle;
+    }
+  }
+
+  window.addEventListener('gradientChange', (e) => {
+    updateGradientBackground(e.detail.gradientName);
+  });
+</script>
+
+</body>
+</html>

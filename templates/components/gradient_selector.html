@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Seletor de Gradiente</title>
+<style>
+.gradient-button {
+    width: 20px;
+    height: 20px;
+    background-color: #000;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.gradient-options {
+    display: none; /* Inicialmente escondido */
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    background-color: #fff;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 100;
+}
+
+.gradient-option {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    cursor: pointer;
+    
+}
+</style>
+</head>
+<body>
+
+<div id="gradientMenuApp">
+    <div class="gradient-button" @click="toggleMenu"></div>
+    <div class="gradient-options" v-show="menuVisible">
+        <div class="gradient-option" @click="changeBackground('gradient1')" style="background: linear-gradient(to right, #ff9a9e, #fad0c4);"></div>
+        <div class="gradient-option" @click="changeBackground('gradient2')" style="background: linear-gradient(to right, #a18cd1, #fbc2eb);"></div>
+        <div class="gradient-option" @click="changeBackground('gradient3')" style="background: linear-gradient(to right, #ffecd2, #fcb69f);"></div>
+    </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script>
+  new Vue({
+      el: '#gradientMenuApp',
+      data: {
+          menuVisible: false, // Garante que o estado inicial está definido corretamente
+      },
+      methods: {
+          toggleMenu() {
+              this.menuVisible = !this.menuVisible; // Alterna o estado do menu
+          },
+          changeBackground(gradientName) {
+              // Dispara o evento personalizado com o nome do gradiente selecionado
+              const event = new CustomEvent('gradientChange', { detail: { gradientName } });
+              window.dispatchEvent(event);
+              this.menuVisible = false; // Esconde o menu após a seleção
+          }
+      }
+  });
+  </script>
+
+</body>
+</html>
